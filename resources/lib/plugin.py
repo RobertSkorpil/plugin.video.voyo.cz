@@ -5,16 +5,20 @@ import requests
 import json
 import os
 import xbmc
+import xbmcvfs
 import xbmcaddon
 import xbmcgui
 import xbmcplugin
 import inputstreamhelper
 
 addon = xbmcaddon.Addon()
-profile = xbmc.translatePath(addon.getAddonInfo('profile'))
+profile = xbmcvfs.translatePath(addon.getAddonInfo('profile'))
 plugin = routing.Plugin()
 
-baseUrl = addon.getSetting('source') #'https://apivoyo.cms.nova.cz/api/v1/'
+baseUrl = addon.getSetting('source')
+if baseUrl == '':
+	baseUrl = 'https://apivoyo.cms.nova.cz/api/v1/'
+
 session = requests.session()
 token = ''
 deviceHeaders = {
